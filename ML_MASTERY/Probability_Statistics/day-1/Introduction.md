@@ -1,0 +1,539 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://resources.devweekends.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Probability and Statistics for Machine Learning
+
+> Master probability and statistics through real-world examples - from house prices to Netflix recommendations
+
+<Frame>
+  <img src="https://mintcdn.com/devweeekends/M9ZntNGqDsFZ-ibN/images/courses/statistics-for-ml/probability-real-world.svg?fit=max&auto=format&n=M9ZntNGqDsFZ-ibN&q=85&s=49d16322f8c83aa5df73f95ef0663a28" alt="Probability and Statistics for ML" width="1080" height="1080" data-path="images/courses/statistics-for-ml/probability-real-world.svg" />
+</Frame>
+
+# Probability and Statistics for Machine Learning
+
+## The Questions That Statistics Answers
+
+You're looking at houses to buy. The real estate agent says: *"This 3-bedroom house is priced at \$450,000 - that's a great deal for this neighborhood!"*
+
+**How do you know if that's true?**
+
+You could:
+
+1. Trust the agent blindly (risky)
+2. Look at one other house and compare (not enough info)
+3. Analyze ALL houses in the neighborhood to understand what's "normal"
+
+That third option? **That's statistics.**
+
+Statistics helps you answer questions like:
+
+* What's the "typical" house price in this area?
+* How much do prices vary?
+* Is this house unusually cheap, or is it hiding problems?
+* If I wait 6 months, what might prices be?
+
+<Warning>
+  **Real Talk**: You probably remember statistics as boring formulas about "mean, median, mode" that you memorized for exams and promptly forgot.
+
+  This time is different. We're going to show you why data scientists get paid \$150K+ to answer these exact questions - and you'll be able to answer them too.
+</Warning>
+
+<Info>
+  **Estimated Time**: 20-25 hours\
+  **Difficulty**: Beginner-friendly (no math prerequisites)\
+  **Prerequisites**: Basic Python\
+  **What You'll Build**: House price predictor, A/B test analyzer, spam classifier, and more
+</Info>
+
+<Accordion title="📋 Prerequisite Self-Check" icon="clipboard-check">
+  **Before starting, make sure you can:**
+
+  ✅ **Python Basics**
+
+  * Work with lists and dictionaries
+  * Use pandas DataFrames: `df['column']`, `df.mean()`
+  * Create basic plots with matplotlib
+  * Import and use libraries
+
+  ✅ **Comfort Level**
+
+  * Not afraid of looking at data tables
+  * Willing to think about "what's typical" vs "what's unusual"
+  * Curious about why experiments need control groups
+
+  ❌ **You DON'T need:**
+
+  * Previous statistics courses
+  * Linear algebra (though it helps for regression)
+  * Calculus knowledge
+  * Any ML/AI experience
+
+  **Recommended Path Options:**
+
+  1. **Standalone**: Just this course if focused on data analysis
+  2. **Full ML Prep**: [Linear Algebra](/courses/math-for-ml-linear-algebra) → [Calculus](/courses/math-for-ml-calculus) → This Course
+  3. **Parallel**: Take this alongside Calculus course (they complement each other)
+</Accordion>
+
+<Accordion title="🧪 Quick Diagnostic: Are You Ready?" icon="flask">
+  **Try these checks to gauge your readiness:**
+
+  **Pandas Check** (can you read this code?):
+
+  ```python  theme={null}
+  import pandas as pd
+  df = pd.DataFrame({'price': [250000, 300000, 450000, 380000]})
+  print(df['price'].mean())
+  print(df['price'].max() - df['price'].min())
+  ```
+
+  <details>
+    <summary>What do these print?</summary>
+    `345000.0` (average price) and `200000` (price range). If you got this, you're ready!
+  </details>
+
+  **Intuition Check** (can you answer this?):
+  You flip a fair coin 10 times and get 7 heads. Is the coin biased?
+
+  <details>
+    <summary>Think about it...</summary>
+    Probably not! Getting 7 heads in 10 flips is unusual but not impossibly rare (∼12% chance). This is exactly the kind of reasoning we'll formalize in this course.
+  </details>
+
+  **Remediation Paths**:
+
+  | Gap Identified    | Recommended Action                                                               |
+  | ----------------- | -------------------------------------------------------------------------------- |
+  | Python basics     | [Python Crash Course](/courses/python-crash-course) - 4-6 hours                  |
+  | Pandas unfamiliar | [Pandas section of Python course](/courses/python-crash-course#pandas) - 2 hours |
+  | Basic arithmetic  | Khan Academy "Basic statistics" - 1 hour                                         |
+  | Graphing basics   | YouTube "Reading histograms and scatter plots" - 30 min                          |
+</Accordion>
+
+<Tip>
+  **Career Multiplier**: Statistics is the language of data-driven decision making. Every tech company makes decisions based on statistical analysis. Understanding these concepts separates product managers who guess from those who know, and data scientists who report from those who impact.
+</Tip>
+
+***
+
+## Why Statistics Matters (Before We Even Mention ML)
+
+### Real World Example: The Coffee Shop Owner
+
+Sarah owns a coffee shop. She's considering these decisions:
+
+| Question                                 | What She Needs                    |
+| ---------------------------------------- | --------------------------------- |
+| "Should I stay open until 10 PM?"        | Average sales by hour + variation |
+| "Is my new latte recipe selling better?" | Comparison between old vs new     |
+| "How many cups will I sell tomorrow?"    | Prediction from patterns          |
+| "Why did sales drop last Tuesday?"       | Outlier detection                 |
+
+**Every one of these is a statistics problem.** No machine learning required!
+
+### The Hospital Administrator
+
+Dr. Patel needs to make decisions with limited data:
+
+| Question                                                         | Statistical Concept      |
+| ---------------------------------------------------------------- | ------------------------ |
+| "Is this new drug actually better?"                              | Hypothesis testing       |
+| "What's the chance a patient has diabetes given their symptoms?" | Bayes' theorem           |
+| "Which factors predict heart disease?"                           | Correlation & regression |
+| "Is this blood test result normal?"                              | Normal distribution      |
+
+### The E-commerce Manager
+
+Alex runs an online store:
+
+| Question                                    | Statistical Concept  |
+| ------------------------------------------- | -------------------- |
+| "Did the new checkout page increase sales?" | A/B testing          |
+| "Which customers are likely to buy again?"  | Probability          |
+| "How confident am I in this survey result?" | Confidence intervals |
+| "Are these two product categories related?" | Correlation          |
+
+***
+
+## How This Connects to Machine Learning
+
+Now here's the beautiful thing. Once you understand statistics, **machine learning is just statistics at scale**.
+
+| Statistics Problem                | Machine Learning Version                             |
+| --------------------------------- | ---------------------------------------------------- |
+| "What's the average house price?" | "Predict ANY house's price from its features"        |
+| "Is the new drug better?"         | "Which of 1000 treatments is best for each patient?" |
+| "Are height and weight related?"  | "Learn the relationship between 100 variables"       |
+| "Is this blood test normal?"      | "Is this transaction fraudulent?"                    |
+
+**Statistics gives you the foundation. Machine learning gives you superpowers.**
+
+But here's what most courses get wrong: they jump straight to ML without building the statistical intuition first. That's like trying to run before you can walk.
+
+<Note>
+  **🔗 ML Connection**: Throughout this course, we'll highlight exactly how each concept powers real ML systems:
+
+  | Statistics Concept      | ML Application                                     |
+  | ----------------------- | -------------------------------------------------- |
+  | **Mean & Variance**     | Batch normalization in neural networks             |
+  | **Bayes' Theorem**      | Naive Bayes classifiers, Bayesian neural networks  |
+  | **Normal Distribution** | Weight initialization, understanding model outputs |
+  | **Hypothesis Testing**  | A/B tests for model comparison, feature importance |
+  | **Regression**          | Linear layers in neural networks, baseline models  |
+  | **MLE**                 | Training objective for most ML models              |
+
+  Look for the 🔗 symbol in each module for these connections!
+</Note>
+
+***
+
+## 🎮 Interactive Visualization Tools
+
+Statistics is best learned by *seeing* data. Use these tools alongside the course:
+
+<CardGroup cols={2}>
+  <Card title="Seeing Theory" icon="eye" href="https://seeing-theory.brown.edu/">
+    Beautiful interactive visualizations of probability and statistics. Use with Modules 2-4.
+  </Card>
+
+  <Card title="StatKey" icon="key" href="http://www.lock5stat.com/StatKey/">
+    Simulate sampling distributions, hypothesis tests, and confidence intervals. Perfect for Modules 4-5.
+  </Card>
+
+  <Card title="Regression Visualizer" icon="chart-line" href="https://www.geogebra.org/m/xC6zq7Zv">
+    Fit lines to data, see residuals, understand least squares. Use with Module 6.
+  </Card>
+
+  <Card title="Distribution Explorer" icon="chart-bar" href="https://distribution-explorer.github.io/">
+    Visualize any probability distribution with adjustable parameters. Essential for Module 3.
+  </Card>
+</CardGroup>
+
+<Note>
+  **🔗 When to Use These Tools**:
+
+  * **Module 2 (Probability)**: Seeing Theory - probability chapter
+  * **Module 3 (Distributions)**: Distribution Explorer for every distribution we cover
+  * **Module 4 (Inference)**: StatKey for sampling simulations
+  * **Module 5 (Hypothesis Testing)**: StatKey for test simulations
+  * **Module 6 (Regression)**: Regression Visualizer GeoGebra app
+</Note>
+
+<Accordion title="🚀 Going Deeper: For Advanced Learners" icon="graduation-cap">
+  **Want more mathematical rigor?** Each module includes optional "Going Deeper" sections:
+
+  | Module             | Advanced Topic                   | Why It Matters                                       |
+  | ------------------ | -------------------------------- | ---------------------------------------------------- |
+  | Probability        | Measure theory foundations       | Understand probabilistic ML rigorously               |
+  | Distributions      | Moment generating functions      | Derive distribution properties from first principles |
+  | Inference          | Maximum likelihood derivations   | Understand why ML training objectives work           |
+  | Hypothesis Testing | Power analysis, multiple testing | Design statistically valid ML experiments            |
+  | Regression         | Matrix formulation, OLS theory   | Connect to neural network linear layers              |
+  | Bayesian           | Conjugate priors, MCMC           | Foundation for probabilistic ML models               |
+
+  **These sections are OPTIONAL.** You can run A/B tests and build regression models without them. They're for learners who:
+
+  * Have a quantitative background and want the formal treatment
+  * Plan to work on probabilistic ML or Bayesian methods
+  * Want to understand ML research papers deeply
+
+  **Recommended Resources for Deep Dives:**
+
+  * *Think Stats* by Allen Downey (free, programming-first approach)
+  * *Statistical Rethinking* by Richard McElreath (Bayesian, excellent videos)
+  * MIT OpenCourseWare 18.05 (rigorous but accessible probability/stats)
+</Accordion>
+
+***
+
+## What You'll Learn (The Roadmap)
+
+### 🏠 Module 1: Describing Data
+
+*"What does 'normal' look like?"*
+
+**Real-World Problem**: You're buying a house. What's a fair price?
+
+**What You'll Learn**:
+
+* Mean, median, mode (and when each matters)
+* Variance and standard deviation (how spread out are prices?)
+* Percentiles (is \$450K in the top 10%?)
+
+**Mini-Project**: Analyze house prices in your city
+
+***
+
+### 🎲 Module 2: Probability Foundations
+
+*"How likely is this to happen?"*
+
+**Real-World Problem**: You're a doctor. A patient tests positive for a rare disease. What's the chance they actually have it?
+
+**What You'll Learn**:
+
+* Basic probability rules
+* Conditional probability (given this, what's the chance of that?)
+* Bayes' theorem (the most important formula in data science)
+
+**Mini-Project**: Build a spam email detector
+
+***
+
+### 📊 Module 3: Probability Distributions
+
+*"What patterns does randomness follow?"*
+
+**Real-World Problem**: A factory produces light bulbs. How many will fail in the first 1000 hours?
+
+**What You'll Learn**:
+
+* Normal distribution (the bell curve that rules the world)
+* Binomial distribution (success/failure events)
+* Why these patterns appear everywhere
+
+**Mini-Project**: Quality control simulator
+
+***
+
+### 🔬 Module 4: Statistical Inference
+
+*"How confident can I be from limited data?"*
+
+**Real-World Problem**: You survey 500 voters. Can you predict the entire election?
+
+**What You'll Learn**:
+
+* Sampling and why it works
+* Confidence intervals (how sure are we?)
+* Standard error (how much could our estimate be off?)
+
+**Mini-Project**: Election predictor from polls
+
+***
+
+### ⚖️ Module 5: Hypothesis Testing
+
+*"Is this difference real or just luck?"*
+
+**Real-World Problem**: Your new website design got 5% more clicks. Is that real improvement or random chance?
+
+**What You'll Learn**:
+
+* Null and alternative hypotheses
+* P-values (the most misunderstood concept in statistics)
+* A/B testing the right way
+
+**Mini-Project**: A/B test analyzer for websites
+
+***
+
+### 📈 Module 6: Correlation & Regression
+
+*"How are things related?"*
+
+**Real-World Problem**: Do houses with more bedrooms cost more? By how much?
+
+**What You'll Learn**:
+
+* Correlation (are two things related?)
+* Simple linear regression (predict Y from X)
+* Multiple regression (predict Y from X1, X2, X3...)
+
+**Mini-Project**: House price predictor
+
+***
+
+### 🎯 Module 7: From Statistics to Machine Learning
+
+*"Connecting everything together"*
+
+**Real-World Problem**: You have all these statistical tools. How do they power AI?
+
+**What You'll Learn**:
+
+* The statistical foundations of ML algorithms
+* Bias-variance tradeoff
+* Cross-validation and model selection
+* When to use statistics vs ML
+
+**Capstone Project**: Build a complete prediction system
+
+***
+
+## Course Structure
+
+Each module follows this formula:
+
+**1. Real-World Hook** 🏠
+
+* Start with a problem you can relate to
+* No jargon, no formulas yet
+
+**2. Intuition Building** 💡
+
+* Visual explanations with SVG diagrams
+* Multiple examples from different domains
+
+**3. The Mathematics** 📐
+
+* Formulas (after you understand why they exist)
+* Step-by-step derivations when helpful
+
+**4. Python Implementation** 🐍
+
+* Code from scratch first
+* Then the "real" way with libraries
+
+**5. Practice Problems** ✍️
+
+* Exercises with solutions
+* Real datasets to explore
+
+**6. Mini-Project** 🚀
+
+* Apply everything you learned
+* Build something you can show off
+
+***
+
+## Prerequisites
+
+**Required**:
+
+* Basic Python (variables, loops, functions)
+* Willingness to think differently about data
+* No math background needed (we build from scratch)
+
+**Helpful but not required**:
+
+* Basic algebra (we'll review what we need)
+* NumPy/Pandas experience (we'll teach as we go)
+
+***
+
+## Industry Applications
+
+<CardGroup cols={2}>
+  <Card title="Data Science" icon="chart-pie">
+    Every data science interview includes probability and statistics. From A/B testing at tech companies to risk modeling at banks.
+  </Card>
+
+  <Card title="Machine Learning" icon="brain">
+    ML algorithms are built on statistical foundations. Understanding stats makes you a better ML engineer.
+  </Card>
+
+  <Card title="Product Analytics" icon="gauge">
+    Product managers use hypothesis testing daily to make decisions about features, pricing, and user experience.
+  </Card>
+
+  <Card title="Quantitative Finance" icon="chart-candlestick">
+    Trading algorithms, risk management, and portfolio optimization all rely heavily on probability theory.
+  </Card>
+</CardGroup>
+
+***
+
+## Interview Relevance
+
+<Accordion title="Common Interview Topics by Company Type">
+  **FAANG / Big Tech**:
+
+  * A/B testing methodology
+  * Probability puzzles (conditional probability, Bayes)
+  * Experimental design
+  * Statistical significance vs practical significance
+
+  **Startups**:
+
+  * Product metrics interpretation
+  * Quick hypothesis testing
+  * Data-driven decision making
+
+  **Finance / Quant**:
+
+  * Probability distributions
+  * Time series concepts
+  * Risk quantification
+  * Monte Carlo methods
+
+  **Healthcare / Biotech**:
+
+  * Clinical trial statistics
+  * Survival analysis basics
+  * Multiple testing corrections
+</Accordion>
+
+***
+
+## Your Learning Path
+
+```
+Week 1-2: Describing Data
+  ↓ "What does normal look like?"
+Week 2-3: Probability
+  ↓ "How likely is this?"
+Week 3-4: Distributions
+  ↓ "What patterns exist?"
+Week 4-5: Inference
+  ↓ "How confident am I?"
+Week 5-6: Hypothesis Testing
+  ↓ "Is this real or luck?"
+Week 6-7: Regression
+  ↓ "How are things related?"
+Week 7-8: Statistics → ML
+  ↓ "How does this power AI?"
+Final: Capstone Project
+```
+
+***
+
+## Let's Start!
+
+Ready to see the world differently? Let's begin with the most fundamental question in all of statistics:
+
+**"What's normal?"**
+
+Not philosophically. Statistically. When you look at a bunch of numbers, what's typical? What's unusual? And how do you tell the difference?
+
+***
+
+## Key Takeaways
+
+<Note>
+  **What You'll Master in This Course**:
+
+  * ✅ **Descriptive Statistics** - Summarize any dataset with meaningful numbers
+  * ✅ **Probability Theory** - Quantify uncertainty and make predictions
+  * ✅ **Statistical Inference** - Draw valid conclusions from limited data
+  * ✅ **Hypothesis Testing** - Determine if differences are real or random noise
+  * ✅ **Regression Analysis** - Predict outcomes and understand relationships
+  * ✅ **ML Foundations** - Connect statistical concepts to machine learning algorithms
+</Note>
+
+<Warning>
+  **Common Mistake**: Many learners rush through probability to get to "the cool ML stuff." Don't do this! Probability and distributions are the foundation of everything in ML—from understanding model confidence to debugging training issues. Master the basics and everything else becomes easier.
+</Warning>
+
+<Accordion title="🧹 Real-World Data: It's Messy" icon="broom">
+  **What textbooks don't tell you:** Real data is messy. Throughout this course, we'll explicitly address:
+
+  | Messy Data Problem        | Where We Cover It | Why It Matters                   |
+  | ------------------------- | ----------------- | -------------------------------- |
+  | **Missing values**        | Module 2, 6       | 90% of datasets have them        |
+  | **Outliers**              | Module 1, 6       | Can destroy your analysis        |
+  | **Skewed distributions**  | Module 1, 3       | Mean ≠ median for most real data |
+  | **Selection bias**        | Module 4          | Surveys often lie                |
+  | **Multiple testing**      | Module 5          | P-hacking is everywhere          |
+  | **Confounding variables** | Module 6          | Correlation ≠ causation          |
+
+  **Our approach**: Every module includes a "Real-World Complications" section showing how to handle messy data. You'll work with actual messy datasets, not just clean textbook examples.
+</Accordion>
+
+<Card title="Next: Describing Data" icon="arrow-right" href="/courses/statistics-for-ml/02-describing-data">
+  Learn to summarize any dataset with the right numbers
+</Card>
+
+
+Built with [Mintlify](https://mintlify.com).
